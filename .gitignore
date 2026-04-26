@@ -2,4 +2,5 @@
 *.pid
 node_modules/
 .env
-
+.cache
+.ssh
