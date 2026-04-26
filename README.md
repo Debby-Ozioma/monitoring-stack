@@ -35,3 +35,35 @@ It demonstrates how to monitor application performance, system metrics, and visu
 ```bash
 scp -i key.pem -r monitoring-stack ubuntu@54.82.18.197:~/
 ```
+
+
+## WEEK 10 EXPLANATION
+In Kubernetes, a Secret is used to store sensitive information like usernames and passwords securely.
+
+Instead of writing credentials directly inside configuration files, Kubernetes stores them in a Secret object.
+
+In this setup, the MongoDB container does not read the Secret as a file. Instead, the values inside the Secret are passed to the container as environment variables.
+
+For example:
+
+MONGO_INITDB_ROOT_USERNAME
+MONGO_INITDB_ROOT_PASSWORD
+
+These variables are used by MongoDB when the container starts to create the initial admin user.
+
+The line:
+
+valueFrom:
+  secretKeyRef:
+
+tells Kubernetes to:
+
+look for a Secret named mongodb-secret
+get a specific value (like username or password)
+inject it into the container as an environment variable
+
+This way:
+
+sensitive data is not exposed in plain text inside YAML files
+credentials are managed securely
+applications can still access them when needed
